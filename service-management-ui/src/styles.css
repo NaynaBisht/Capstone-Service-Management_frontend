@@ -1,0 +1,71 @@
+/* 1. Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+/* 2. Import Tailwind */
+@import "tailwindcss";
+
+/* 3. Configure Theme (Fonts & Colors) */
+@theme {
+  /* Define Custom Fonts */
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Inter", sans-serif;
+
+  /* Define Brand Colors */
+  --color-brand-primary: #c27843;
+  --color-brand-dark: #333333;
+  --color-brand-light: #f9f9f9;
+}
+
+/* 4. Global Styles */
+html, body {
+  height: 100%;
+  /* Apply the variables we defined above */
+  font-family: var(--font-body);
+  color: var(--color-brand-dark);
+  background-color: theme('colors.gray.50'); /* or use var(--color-brand-light) */
+}
+
+/* Optional: Default Heading Styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+/* Add this to src/styles.css for cleaner HTML */
+@layer components {
+  .nav-link {
+    @apply text-gray-600 hover:text-[var(--color-brand-primary)]
+           font-medium px-1 py-2 transition-all duration-200
+           border-b-2 border-transparent hover:border-[var(--color-brand-primary)];
+  }
+
+  .nav-cta {
+    @apply border border-[var(--color-brand-primary)] text-[var(--color-brand-primary)]
+           px-5 py-2 rounded-full font-semibold text-sm
+           hover:bg-[var(--color-brand-primary)] hover:text-white
+           transition-all duration-300 shadow-sm;
+  }
+}
+
+@layer components {
+  .service-card {
+    @apply bg-[#faf7f4] rounded-xl p-6 text-center
+           shadow-sm hover:shadow-md transition-all
+           flex flex-col items-center gap-3;
+  }
+
+  .service-card h4 {
+    @apply font-semibold text-lg;
+  }
+
+  .service-card p {
+    @apply text-sm text-gray-600;
+  }
+}
+@layer components {
+  .step-card {
+    @apply bg-white rounded-xl p-6 shadow-sm
+           flex flex-col items-center gap-3;
+  }
+}
+
