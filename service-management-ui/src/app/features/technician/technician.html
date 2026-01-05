@@ -1,0 +1,290 @@
+<section class="min-h-screen bg-[#faf7f4] py-12 px-4 sm:px-6 lg:px-8 font-sans">
+  <div class="max-w-7xl mx-auto">
+    
+    <h1 class="text-3xl font-serif font-bold text-gray-800 mb-8">
+      Technician Onboarding
+    </h1>
+
+    <div class="max-w-4xl mb-10">
+      <div class="flex items-center bg-[#f3e4d7] rounded-full px-2 py-2 pr-6 w-fit shadow-sm">
+        
+        <div 
+          class="flex items-center gap-2 text-sm font-semibold px-5 py-2 rounded-full transition-all duration-300"
+          [ngClass]="step === 1 ? 'bg-[#c27843] text-white shadow-md' : 'bg-transparent text-[#c27843]'"
+        >
+          <span *ngIf="step === 1">1. Technician Details</span>
+          <span *ngIf="step > 1" class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Technician Details
+          </span>
+        </div>
+
+        <div class="w-12 h-[2px] bg-white/50 mx-3"></div>
+
+        <div 
+          class="flex items-center gap-2 text-sm font-semibold px-5 py-2 rounded-full transition-all duration-300"
+          [ngClass]="step === 2 ? 'bg-[#c27843] text-white shadow-md' : 'text-gray-500'"
+        >
+          <span 
+            class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shadow-sm transition-colors"
+            [ngClass]="step === 2 ? 'bg-white text-[#c27843]' : 'bg-white text-gray-500'"
+          >
+            2
+          </span>
+          Upload Documents
+        </div>
+      </div>
+      <p class="text-gray-500 text-sm mt-3 ml-2">Please fill out the form below to onboard as a technician.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      
+      <div 
+        class="bg-[#fffcf9] rounded-2xl shadow-sm border border-[#ebdccf] p-8 relative overflow-hidden h-full flex flex-col transition-opacity duration-500"
+        [class.opacity-60]="step === 2"
+        [class.pointer-events-none]="step === 2"
+      >
+        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#c27843] to-[#e0a87e]"></div>
+
+        <form [formGroup]="technicianForm" class="space-y-3 flex-1 flex flex-col">
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1.5">
+              Full Name <span class="text-red-500">*</span>
+            </label>
+            <input 
+              type="text" 
+              formControlName="name" 
+              placeholder="nayna" 
+              class="w-full px-4 py-3 rounded-xl border bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all shadow-sm"
+              [class.border-red-500]="f.name.invalid && f.name.touched"
+              [class.focus:border-red-500]="f.name.invalid && f.name.touched"
+              [class.focus:ring-red-200]="f.name.invalid && f.name.touched"
+              [class.border-gray-200]="!f.name.invalid || !f.name.touched"
+              [class.focus:border-[#c27843]]="!f.name.invalid || !f.name.touched"
+              [class.focus:ring-[#c27843]/20]="!f.name.invalid || !f.name.touched"
+            />
+            <div *ngIf="f.name.invalid && f.name.touched" class="text-red-500 text-xs mt-1">
+              Full Name is required.
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">
+                Email Address <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="email"
+                formControlName="email"
+                placeholder="nayna@gmail.com"
+                class="w-full px-4 py-3 rounded-xl border bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all shadow-sm"
+                [class.border-red-500]="f.email.invalid && f.email.touched"
+                [class.focus:border-red-500]="f.email.invalid && f.email.touched"
+                [class.focus:ring-red-200]="f.email.invalid && f.email.touched"
+                [class.border-gray-200]="!f.email.invalid || !f.email.touched"
+                [class.focus:border-[#c27843]]="!f.email.invalid || !f.email.touched"
+                [class.focus:ring-[#c27843]/20]="!f.email.invalid || !f.email.touched"
+              />
+              <div *ngIf="f.email.invalid && f.email.touched" class="text-red-500 text-xs mt-1">
+                <span *ngIf="f.email.errors?.['required']">Email is required.</span>
+                <span *ngIf="f.email.errors?.['email']">Invalid email format.</span>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">
+                Phone Number <span class="text-red-500">*</span>
+              </label>
+              <input 
+                type="text" 
+                formControlName="phone" 
+                placeholder="8766554321" 
+                class="w-full px-4 py-3 rounded-xl border bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all shadow-sm" 
+                [class.border-red-500]="f.phone.invalid && f.phone.touched"
+                [class.focus:border-red-500]="f.phone.invalid && f.phone.touched"
+                [class.focus:ring-red-200]="f.phone.invalid && f.phone.touched"
+                [class.border-gray-200]="!f.phone.invalid || !f.phone.touched"
+                [class.focus:border-[#c27843]]="!f.phone.invalid || !f.phone.touched"
+                [class.focus:ring-[#c27843]/20]="!f.phone.invalid || !f.phone.touched"
+              />
+              <div *ngIf="f.phone.invalid && f.phone.touched" class="text-red-500 text-xs mt-1">
+                <span *ngIf="f.phone.errors?.['required']">Phone is required.</span>
+                <span *ngIf="f.phone.errors?.['pattern']">Enter a valid 10-digit number.</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1.5">
+              City <span class="text-red-500">*</span>
+            </label>
+            <input 
+              type="text" 
+              formControlName="city" 
+              placeholder="delhi" 
+              class="w-full px-4 py-3 rounded-xl border bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all shadow-sm" 
+              [class.border-red-500]="f.city.invalid && f.city.touched"
+              [class.focus:border-red-500]="f.city.invalid && f.city.touched"
+              [class.focus:ring-red-200]="f.city.invalid && f.city.touched"
+              [class.border-gray-200]="!f.city.invalid || !f.city.touched"
+              [class.focus:border-[#c27843]]="!f.city.invalid || !f.city.touched"
+              [class.focus:ring-[#c27843]/20]="!f.city.invalid || !f.city.touched"
+            />
+            <div *ngIf="f.city.invalid && f.city.touched" class="text-red-500 text-xs mt-1">
+              City is required.
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1.5">
+              Skills <span class="text-red-500">*</span>
+            </label>
+            <div class="relative">
+              <select
+                formControlName="skills"
+                class="w-full px-4 py-3 rounded-xl border bg-white text-gray-700 focus:outline-none focus:ring-2 transition-all shadow-sm appearance-none cursor-pointer"
+                [class.border-red-500]="f.skills.invalid && f.skills.touched"
+                [class.focus:border-red-500]="f.skills.invalid && f.skills.touched"
+                [class.focus:ring-red-200]="f.skills.invalid && f.skills.touched"
+                [class.border-gray-200]="!f.skills.invalid || !f.skills.touched"
+                [class.focus:border-[#c27843]]="!f.skills.invalid || !f.skills.touched"
+                [class.focus:ring-[#c27843]/20]="!f.skills.invalid || !f.skills.touched"
+              >
+                <option value="" disabled selected>Select skill</option>
+                <option value="SALON">Salon Specialist</option>
+                <option value="PLUMBING">Plumbing</option>
+                <option value="ELECTRICAL">Electrical</option>
+                <option value="CLEANING">Home Cleaning</option>
+              </select>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 absolute right-4 top-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+            <div *ngIf="f.skills.invalid && f.skills.touched" class="text-red-500 text-xs mt-1">
+              Please select a skill.
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1.5">
+              Years of Experience <span class="text-red-500">*</span>
+            </label>
+            <input 
+              type="number" 
+              formControlName="experienceYears"
+              min="0"
+              placeholder="2"
+              class="w-full px-4 py-3 rounded-xl border bg-white text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all shadow-sm"
+              [class.border-red-500]="f.experienceYears.invalid && f.experienceYears.touched"
+              [class.focus:border-red-500]="f.experienceYears.invalid && f.experienceYears.touched"
+              [class.focus:ring-red-200]="f.experienceYears.invalid && f.experienceYears.touched"
+              [class.border-gray-200]="!f.experienceYears.invalid || !f.experienceYears.touched"
+              [class.focus:border-[#c27843]]="!f.experienceYears.invalid || !f.experienceYears.touched"
+              [class.focus:ring-[#c27843]/20]="!f.experienceYears.invalid || !f.experienceYears.touched"
+            />
+            <div *ngIf="f.experienceYears.invalid && f.experienceYears.touched" class="text-red-500 text-xs mt-1">
+              Experience is required.
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-6 mt-auto border-t border-dashed border-gray-200">
+            <button
+              type="button"
+              class="px-6 py-2.5 rounded-xl border border-gray-300 text-gray-600 font-medium hover:bg-gray-50 transition"
+            >
+              Save & Exit
+            </button>
+
+            <button
+              type="button"
+              (click)="nextStep()"
+              class="px-8 py-2.5 rounded-xl bg-[#c27843] text-white font-semibold shadow-lg shadow-orange-900/10 hover:shadow-orange-900/20 hover:bg-[#b06a38] transition transform active:scale-95"
+            >
+              Next Step
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div 
+        class="bg-[#fffcf9] rounded-2xl shadow-sm border border-[#ebdccf] p-8 h-full flex flex-col relative transition-opacity duration-500"
+        [class.opacity-50]="step === 1"
+        [class.pointer-events-none]="step === 1"
+      >
+        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-gray-200 to-gray-300"></div>
+
+        <h3 class="text-xl font-bold text-gray-800 mb-6">Step 2: Upload Documents</h3>
+
+        <div class="flex-1 border-2 border-dashed border-[#e6d0bf] rounded-2xl bg-[#fffbf7] flex flex-col items-center justify-center p-8 text-center relative">
+          
+          <div class="w-16 h-16 bg-[#fdf2eb] rounded-full flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#c27843]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+
+          <h4 class="text-gray-800 font-semibold mb-1">Upload Required Files</h4>
+          <p class="text-sm text-gray-500 mb-8 max-w-xs">Please upload your Aadhaar card and relevant experience certificates.</p>
+
+          <div class="w-full space-y-4 max-w-xs text-left">
+            
+            <div>
+              <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide ml-1">Aadhaar Card</label>
+              <div class="mt-1 flex items-center gap-2 bg-white p-1 rounded-xl border border-gray-200 shadow-sm">
+                 <input
+                  type="file"
+                  class="block w-full text-sm text-gray-500
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-lg file:border-0
+                    file:text-xs file:font-semibold
+                    file:bg-[#fdf2eb] file:text-[#c27843]
+                    hover:file:bg-[#fae4d7]
+                    cursor-pointer"
+                />
+              </div>
+            </div>
+
+            <div>
+               <label class="text-xs font-semibold text-gray-500 uppercase tracking-wide ml-1">Experience Cert (Optional)</label>
+               <div class="mt-1 flex items-center gap-2 bg-white p-1 rounded-xl border border-gray-200 shadow-sm">
+                <input
+                  type="file"
+                  class="block w-full text-sm text-gray-500
+                    file:mr-4 file:py-2 file:px-4
+                    file:rounded-lg file:border-0
+                    file:text-xs file:font-semibold
+                    file:bg-[#fdf2eb] file:text-[#c27843]
+                    hover:file:bg-[#fae4d7]
+                    cursor-pointer"
+                />
+              </div>
+            </div>
+
+          </div>
+          
+        </div>
+
+        <div class="flex justify-between pt-6 mt-auto">
+          <button
+            type="button"
+            (click)="backStep()"
+            class="px-5 py-2.5 rounded-xl text-gray-500 hover:bg-gray-100 transition font-medium"
+          >
+            Back
+          </button>
+
+          <button
+            type="button"
+            class="px-8 py-2.5 rounded-xl bg-[#c27843] text-white font-semibold shadow-lg shadow-orange-900/10 hover:shadow-orange-900/20 hover:bg-[#b06a38] transition"
+          >
+            Submit Application
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

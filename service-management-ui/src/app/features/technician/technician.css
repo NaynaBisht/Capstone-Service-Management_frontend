@@ -1,0 +1,233 @@
+/* ===== Root Theme Alignment ===== */
+:root {
+  --brand: var(--color-brand-primary, #d08b5b);
+  --brand-soft: rgba(208, 139, 91, 0.12);
+  --text-primary: #2e2e2e;
+  --text-secondary: #6b6b6b;
+  --border-soft: rgba(0, 0, 0, 0.06);
+  --bg-card: rgba(255, 255, 255, 0.85);
+}
+
+/* ===== Page Wrapper ===== */
+.onboarding-wrapper {
+  min-height: 100vh;
+  padding: 3rem 1.5rem 4rem;
+  background: linear-gradient(
+    135deg,
+    #faf7f4 0%,
+    #ffffff 45%,
+    #fdfaf7 100%
+  );
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ===== Title ===== */
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1.2rem;
+}
+
+/* ===== Stepper ===== */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.step.active {
+  color: var(--brand);
+  font-weight: 600;
+}
+
+.circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #f1f1f1;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+
+.step.active .circle {
+  background: var(--brand);
+  color: #fff;
+}
+
+.line {
+  flex: 1;
+  height: 2px;
+  background: var(--border-soft);
+}
+
+/* ===== Subtitle ===== */
+.subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+/* ===== Card Layout ===== */
+.card-container {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .card-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Cards ===== */
+.card {
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 1.8rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--border-soft);
+  backdrop-filter: blur(10px);
+}
+
+.card.upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ===== Card Titles ===== */
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-title .icon {
+  font-size: 1.2rem;
+}
+
+/* ===== Form Elements ===== */
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-soft);
+  font-size: 0.9rem;
+  outline: none;
+  background: #fff;
+  margin-bottom: 1.2rem;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-soft);
+}
+
+/* ===== Two Column Row ===== */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* ===== Skill Chip ===== */
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--brand-soft);
+  color: var(--brand);
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+}
+
+/* ===== Actions ===== */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+/* ===== Buttons ===== */
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 0.55rem 1.4rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button.primary {
+  background: var(--brand);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(208, 139, 91, 0.35);
+}
+
+button.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(208, 139, 91, 0.45);
+}
+
+button.secondary {
+  background: #f3f3f3;
+  color: var(--text-secondary);
+}
+
+button.secondary:hover {
+  background: #eaeaea;
+}
+
+/* ===== Upload Section ===== */
+.upload-box {
+  border: 2px dashed var(--brand-soft);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.upload-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.upload-box p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.2rem;
+}
