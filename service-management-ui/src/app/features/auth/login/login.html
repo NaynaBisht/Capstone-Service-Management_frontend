@@ -1,0 +1,54 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+  class="space-y-5 animate-auth"
+>
+  <!-- Heading -->
+  <div class="text-center mb-2">
+    <h2 class="text-xl font-semibold text-gray-800">
+      Welcome back
+    </h2>
+    <p class="text-sm text-gray-500 mt-1">
+      Login to continue to NexaHome
+    </p>
+  </div>
+
+  <!-- Email -->
+  <input
+    type="email"
+    placeholder="Email address"
+    formControlName="email"
+    class="input"
+  />
+
+  <!-- Password -->
+  <input
+    type="password"
+    placeholder="Password"
+    formControlName="password"
+    class="input"
+  />
+
+  <!-- Submit -->
+  <button
+    type="submit"
+    [disabled]="form.invalid"
+    class="auth-btn bg-[var(--color-brand-primary)] text-white
+           hover:shadow-lg hover:-translate-y-[1px]
+           active:translate-y-0"
+  >
+    Login
+  </button>
+
+  <!-- Switch -->
+  <p class="text-center text-sm text-gray-500">
+    Don’t have an account?
+    <button
+      type="button"
+      class="text-[var(--color-brand-primary)] font-medium hover:underline"
+      (click)="switchToRegister()"
+    >
+      Create one
+    </button>
+  </p>
+</form>
