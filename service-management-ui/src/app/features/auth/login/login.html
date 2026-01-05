@@ -1,5 +1,5 @@
 <form
-  [formGroup]="form"
+  [formGroup]="loginForm"
   (ngSubmit)="submit()"
   class="space-y-5 animate-auth"
 >
@@ -32,7 +32,7 @@
   <!-- Submit -->
   <button
     type="submit"
-    [disabled]="form.invalid"
+    [disabled]="loginForm.invalid"
     class="auth-btn bg-[var(--color-brand-primary)] text-white
            hover:shadow-lg hover:-translate-y-[1px]
            active:translate-y-0"
