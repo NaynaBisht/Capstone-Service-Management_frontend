@@ -26,30 +26,62 @@
         </a>
 
         <!-- Profile -->
-        <button
-          class="text-gray-500 hover:text-[var(--color-brand-primary)] transition-colors p-2 rounded-full hover:bg-gray-100"
-          aria-label="Profile"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-7 w-7"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+        <div class="relative" (clickOutside)="closeDropdown()">
+          <button
+            (click)="toggleDropdown()"
+            class="text-gray-500 hover:text-[var(--color-brand-primary)] transition-colors p-2 rounded-full hover:bg-gray-100 focus:outline-none"
+            aria-label="Profile"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M5.121 17.804A13.937 13.937 0 0112 16
-                     c2.5 0 4.847.655 6.879 1.804
-                     M15 10a3 3 0 11-6 0
-                     3 3 0 016 0
-                     zm6 2a9 9 0 11-18 0
-                     9 9 0 0118 0z"
-            />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-7 w-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5.121 17.804A13.937 13.937 0 0112 16
+           c2.5 0 4.847.655 6.879 1.804
+           M15 10a3 3 0 11-6 0
+           3 3 0 016 0
+           zm6 2a9 9 0 11-18 0
+           9 9 0 0118 0z"
+              />
+            </svg>
+          </button>
+
+          <!-- Dropdown -->
+          <!-- Dropdown -->
+          <div
+            *ngIf="isDropdownOpen"
+            class="absolute right-0 mt-3 w-36 bg-white/95 backdrop-blur-md rounded-lg shadow-xl ring-1 ring-black/5 z-50 overflow-hidden animate-dropdown"
+          >
+            <button
+              (click)="openLogin()"
+              class="group w-full flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-[var(--color-brand-primary)]/10 transition-colors"
+            >
+              <span
+                class="h-1.5 w-1.5 rounded-full bg-transparent group-hover:bg-[var(--color-brand-primary)]"
+              ></span>
+              Login
+            </button>
+
+            <button
+              (click)="openRegister()"
+              class="group w-full flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-[var(--color-brand-primary)]/10 transition-colors"
+            >
+              <span
+                class="h-1.5 w-1.5 rounded-full bg-transparent group-hover:bg-[var(--color-brand-primary)]"
+              ></span>
+              Register
+            </button>
+          </div>
+        </div>
+
+        <!-- notification -->
         <button
           class="relative text-gray-500 hover:text-[var(--color-brand-primary)] transition-colors p-2 rounded-full hover:bg-gray-100"
           aria-label="Notifications"
