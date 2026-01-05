@@ -1,0 +1,186 @@
+<div class="min-h-screen bg-gradient-to-br from-[#faf7f4] via-white to-[#fdfaf7] py-12">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <div class="text-center mb-10">
+      <h1 class="text-3xl font-semibold text-gray-800">
+        Book a Service
+      </h1>
+      <p class="text-gray-500 mt-2">
+        Schedule a trusted professional at your convenience
+      </p>
+    </div>
+
+    <form
+      [formGroup]="bookingForm"
+      (ngSubmit)="submit()"
+      class="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-black/5 p-8 grid grid-cols-1 lg:grid-cols-2 gap-10"
+    >
+
+      <div class="space-y-8">
+
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">
+            Service Details <span class="text-red-500">*</span>
+          </h3>
+
+          <div class="grid grid-cols-3 gap-4">
+            <button
+              type="button"
+              (click)="selectService('AC Repair')"
+              [class.border-[var(--color-brand-primary)]]="bookingForm.value.serviceName === 'AC Repair'"
+              [class.bg-[var(--color-brand-primary)]/10]="bookingForm.value.serviceName === 'AC Repair'"
+              class="border rounded-xl p-4 text-sm font-medium transition-all cursor-pointer"
+            >
+              ❄️ AC Repair
+            </button>
+
+            <button
+              type="button"
+              (click)="selectService('Plumbing')"
+              [class.border-[var(--color-brand-primary)]]="bookingForm.value.serviceName === 'Plumbing'"
+              [class.bg-[var(--color-brand-primary)]/10]="bookingForm.value.serviceName === 'Plumbing'"
+              class="border rounded-xl p-4 text-sm font-medium transition-all cursor-pointer"
+            >
+              🚰 Plumbing
+            </button>
+
+            <button
+              type="button"
+              (click)="selectService('Electrician')"
+              [class.border-[var(--color-brand-primary)]]="bookingForm.value.serviceName === 'Electrician'"
+              [class.bg-[var(--color-brand-primary)]/10]="bookingForm.value.serviceName === 'Electrician'"
+              class="border rounded-xl p-4 text-sm font-medium transition-all cursor-pointer"
+            >
+              💡 Electrician
+            </button>
+          </div>
+
+          <p
+            *ngIf="bookingForm.get('serviceName')?.touched && bookingForm.get('serviceName')?.invalid"
+            class="text-xs text-red-500 mt-1"
+          >
+            Please select a service
+          </p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">
+            Category <span class="text-red-500">*</span>
+          </label>
+
+          <select formControlName="categoryName" class="input">
+            <option value="">Choose category</option>
+            <option value="Repair">Repair</option>
+            <option value="Installation">Installation</option>
+          </select>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">
+            Schedule
+          </h3>
+
+          <label class="block text-sm font-medium text-gray-700 mb-1">
+            Pick a Date <span class="text-red-500">*</span>
+            <span class="text-xs text-gray-400 font-normal ml-1">(Next 3 days only)</span>
+          </label>
+
+          <input
+            type="date"
+            formControlName="scheduledDate"
+            [min]="minDate"
+            [max]="maxDate"
+            class="input mb-4"
+          />
+
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            Preferred Time Slot <span class="text-red-500">*</span>
+          </label>
+
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+              <input type="radio" value="SLOT_9_11" formControlName="timeSlot" />
+              9:00 AM – 11:00 AM
+            </label>
+
+            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+              <input type="radio" value="SLOT_11_13" formControlName="timeSlot" />
+              11:00 AM – 1:00 PM
+            </label>
+
+            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+              <input type="radio" value="SLOT_14_16" formControlName="timeSlot" />
+              2:00 PM – 4:00 PM
+            </label>
+
+            <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+              <input type="radio" value="SLOT_16_18" formControlName="timeSlot" />
+              4:00 PM – 6:00 PM
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="space-y-8">
+
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">
+            Service Address
+          </h3>
+
+          <input
+            formControlName="addressLine1"
+            placeholder="Full Address"
+            class="input mb-3"
+          />
+
+          <div class="grid grid-cols-3 gap-3">
+            <input formControlName="city" placeholder="City" class="input" />
+            <input formControlName="state" placeholder="State" class="input" />
+            <input formControlName="zipCode" placeholder="ZIP Code" class="input" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">
+            Describe the Issue <span class="text-red-500">*</span>
+          </label>
+
+          <textarea
+            formControlName="issueDescription"
+            rows="3"
+            class="input"
+            placeholder="e.g. AC not cooling, strange noise"
+          ></textarea>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800 mb-3">
+            Payment Mode <span class="text-red-500">*</span>
+          </h3>
+
+          <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" value="CASH" formControlName="paymentMode" />
+            Pay after service (Cash)
+          </label>
+
+          <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer mt-2">
+            <input type="radio" value="ONLINE" formControlName="paymentMode" />
+            Pay online
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="bookingForm.invalid"
+          class="w-full py-3 rounded-xl font-semibold bg-[var(--color-brand-primary)] text-white transition-all hover:shadow-lg hover:-translate-y-[1px] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none disabled:hover:translate-y-0"
+        >
+          Confirm Booking
+        </button>
+
+      </div>
+
+    </form>
+  </div>
+</div>
