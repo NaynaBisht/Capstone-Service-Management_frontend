@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -18,12 +18,14 @@ export class LoginComponent {
   error = '';
   showPassword = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private authModal: AuthModalService,
-    private authService: AuthService,
-    private router: Router
-  ) {
+  // Inject services
+  private fb = inject(FormBuilder);
+  private authModal = inject(AuthModalService);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef); // ✅ Inject CDR for instant updates
+
+  constructor() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -37,10 +39,14 @@ export class LoginComponent {
   submit(): void {
     if (this.loginForm.invalid) return;
 
+    this.loading = true; // Start loading
+    this.error = ''; // Clear previous errors
+
     const { email, password } = this.loginForm.getRawValue();
 
     this.authService.login({ email, password }).subscribe({
       next: (res) => {
+        this.loading = false;
         this.authModal.close();
 
         switch (res.role) {
@@ -56,8 +62,11 @@ export class LoginComponent {
             break;
         }
       },
-      error: () => {
-        alert('Invalid email or password');
+      error: (err) => {
+        this.loading = false;
+        // Generic message for security
+        this.error = 'Invalid email or password. Please try again.';
+        this.cdr.detectChanges(); // Ensure UI updates immediately
       },
     });
   }
