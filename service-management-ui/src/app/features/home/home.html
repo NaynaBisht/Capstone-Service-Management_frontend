@@ -14,7 +14,7 @@
 
       <div class="mt-8 flex gap-4">
         <a
-          routerLink="/services"
+          routerLink="/booking"
           class="bg-[var(--color-brand-primary)] text-white px-7 py-3 rounded-full font-semibold shadow-md hover:shadow-lg transition-all"
         >
           Book a Service
@@ -59,7 +59,8 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <div
-        class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+        (click)="handleServiceClick()"
+        class="cursor-pointer bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
       >
         <div class="h-48 w-full">
           <img src="plumbing.png" alt="Plumbing Services" class="w-full h-full object-cover" />
@@ -68,66 +69,26 @@
           <h4 class="text-lg font-bold text-gray-900 mb-2">Plumbing Services</h4>
           <ul class="text-sm text-gray-600 space-y-1">
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Pipe leakage repair
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Tap & faucet installation
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Bathroom fitting repairs
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Water tank servicing
             </li>
@@ -136,7 +97,8 @@
       </div>
 
       <div
-        class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+        (click)="handleServiceClick()"
+        class="cursor-pointer bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
       >
         <div class="h-48 w-full">
           <img src="electricity.png" alt="Electrical Services" class="w-full h-full object-cover" />
@@ -145,66 +107,26 @@
           <h4 class="text-lg font-bold text-gray-900 mb-2">Electrical Services</h4>
           <ul class="text-sm text-gray-600 space-y-1">
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Switchboard repairs
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Light & fan installation
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Power outage fixes
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Inverter & MCB fixes
             </li>
@@ -213,7 +135,8 @@
       </div>
 
       <div
-        class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+        (click)="handleServiceClick()"
+        class="cursor-pointer bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
       >
         <div class="h-48 w-full">
           <img src="salon.png" alt="Salon at Home" class="w-full h-full object-cover" />
@@ -222,66 +145,26 @@
           <h4 class="text-lg font-bold text-gray-900 mb-2">Salon & Grooming</h4>
           <ul class="text-sm text-gray-600 space-y-1">
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Haircut & styling
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Facial & cleanup
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Massage services
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Grooming for men & women
             </li>
@@ -290,7 +173,8 @@
       </div>
 
       <div
-        class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+        (click)="handleServiceClick()"
+        class="cursor-pointer bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
       >
         <div class="h-48 w-full">
           <img src="cleaning.png" alt="Home Cleaning" class="w-full h-full object-cover" />
@@ -299,66 +183,26 @@
           <h4 class="text-lg font-bold text-gray-900 mb-2">Home Cleaning</h4>
           <ul class="text-sm text-gray-600 space-y-1">
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Deep home cleaning
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Kitchen & bathroom
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Sofa & carpet cleaning
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Post-renovation cleanup
             </li>
@@ -367,7 +211,8 @@
       </div>
 
       <div
-        class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+        (click)="handleServiceClick()"
+        class="cursor-pointer bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
       >
         <div class="h-48 w-full">
           <img src="ac.png" alt="AC Services" class="w-full h-full object-cover" />
@@ -376,66 +221,26 @@
           <h4 class="text-lg font-bold text-gray-900 mb-2">AC & Cooling</h4>
           <ul class="text-sm text-gray-600 space-y-1">
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               AC install & uninstall
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               AC servicing & gas refill
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Air cooler repair
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Fridge cooling issues
             </li>
@@ -444,7 +249,8 @@
       </div>
 
       <div
-        class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+        (click)="handleServiceClick()"
+        class="cursor-pointer bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
       >
         <div class="h-48 w-full">
           <img src="appliance.png" alt="Appliance Repair" class="w-full h-full object-cover" />
@@ -453,66 +259,26 @@
           <h4 class="text-lg font-bold text-gray-900 mb-2">Appliance Repair</h4>
           <ul class="text-sm text-gray-600 space-y-1">
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Washing machine repair
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Refrigerator repair
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Microwave & oven fix
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Water purifier repair
             </li>
@@ -521,7 +287,8 @@
       </div>
 
       <div
-        class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+        (click)="handleServiceClick()"
+        class="cursor-pointer bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
       >
         <div class="h-48 w-full">
           <img src="pest.png" alt="Pest Control" class="w-full h-full object-cover" />
@@ -530,66 +297,26 @@
           <h4 class="text-lg font-bold text-gray-900 mb-2">Pest Control</h4>
           <ul class="text-sm text-gray-600 space-y-1">
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Cockroach & ant control
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Termite treatment
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Bed bug elimination
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Mosquito control
             </li>
@@ -598,7 +325,8 @@
       </div>
 
       <div
-        class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+        (click)="handleServiceClick()"
+        class="cursor-pointer bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
       >
         <div class="h-48 w-full">
           <img src="carpentary.png" alt="Carpentry" class="w-full h-full object-cover" />
@@ -607,72 +335,33 @@
           <h4 class="text-lg font-bold text-gray-900 mb-2">Carpentry Services</h4>
           <ul class="text-sm text-gray-600 space-y-1">
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Furniture repair
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Door & window fittings
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Modular assembly
             </li>
             <li class="flex items-start">
-              <svg
-                class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                ></path>
+              <svg class="w-4 h-4 text-gray-400 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
               Wooden fixture install
             </li>
           </ul>
         </div>
       </div>
+
     </div>
   </div>
 </section>
