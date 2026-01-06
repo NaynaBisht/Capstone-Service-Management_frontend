@@ -19,4 +19,18 @@ export class BookingService {
   getMyBookings(): Observable<any[]> {
     return this.http.get<any[]>(`${this.BASE_URL}/my-bookings`);
   }
+  cancelBooking(bookingId: string): Observable<any> {
+    return this.http.put(
+      `${this.BASE_URL}/${bookingId}/cancel`,
+      {} // no request body
+    );
+  }
+
+  // RESCHEDULE BOOKING
+  rescheduleBooking(
+    bookingId: string,
+    payload: { scheduledDate: string; timeSlot: string }
+  ): Observable<any> {
+    return this.http.put(`${this.BASE_URL}/${bookingId}/reschedule`, payload);
+  }
 }

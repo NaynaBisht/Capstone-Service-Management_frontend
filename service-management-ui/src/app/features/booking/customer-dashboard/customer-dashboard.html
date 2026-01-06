@@ -1,0 +1,299 @@
+<section class="bg-[#faf7f4] min-h-screen py-12 font-sans text-gray-800 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="mb-8">
+      <h2 class="text-3xl font-serif font-bold text-[#2d2420]">My Bookings</h2>
+      <p class="text-gray-500 mt-2 text-sm">
+        Manage and assign technicians to bookings listed below.
+      </p>
+    </div>
+    <div *ngIf="successMessage" class="mb-6">
+      <div
+        class="bg-green-100 border border-green-300 text-green-800 px-4 py-3 rounded-lg text-sm font-medium"
+      >
+        {{ successMessage }}
+      </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+      <div class="w-full md:w-auto">
+        <div class="relative">
+          <select
+            class="appearance-none bg-[#f3ece6] pl-4 pr-10 py-2.5 rounded-lg border border-[#e6ded5] text-gray-700 text-sm font-medium focus:outline-none focus:border-[#c27843] focus:ring-1 focus:ring-[#c27843] cursor-pointer min-w-[160px]"
+            [(ngModel)]="selectedStatus"
+          >
+            <option value="ALL">All Status</option>
+            <option value="PENDING">Pending</option>
+            <option value="ASSIGNED">Assigned</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="RESCHEDULED">Rescheduled</option>
+            <option value="CANCELLED">Cancelled</option>
+          </select>
+          <div
+            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500"
+          >
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full md:w-auto">
+        <button
+          routerLink="/booking"
+          class="w-full md:w-auto px-8 py-2.5 bg-[#c27843] hover:bg-[#a56336] text-white text-sm font-semibold rounded-lg transition shadow-sm"
+        >
+          Book a Service
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="bg-transparent md:bg-[#fdfaf7] rounded-xl md:border border-[#efe6dc] overflow-hidden md:shadow-sm"
+    >
+      <div
+        class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 bg-[#fdfaf7] border-b border-[#e6ded5] text-xs font-bold text-gray-400 uppercase tracking-wider"
+      >
+        <div class="col-span-2">Booking ID</div>
+        <div class="col-span-2">Service</div>
+        <div class="col-span-3">Schedule Time</div>
+        <div class="col-span-2">Address</div>
+        <div class="col-span-1 text-center">Status</div>
+        <div class="col-span-2 text-right">Actions</div>
+      </div>
+
+      <div class="flex flex-col gap-4 md:gap-0 md:divide-y divide-[#e6ded5]">
+        <div
+          *ngFor="let booking of filteredBookings()"
+          class="bg-[#fdfaf7] md:bg-transparent p-6 md:px-6 md:py-5 rounded-xl border border-[#efe6dc] md:border-none shadow-sm md:shadow-none hover:bg-white transition-colors group"
+        >
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-y-4 md:gap-4 items-center">
+            <div class="col-span-1 md:col-span-2 flex justify-between md:block">
+              <span class="md:hidden text-xs font-bold text-gray-400 uppercase">ID</span>
+              <span class="text-gray-600 font-medium text-sm">#{{ booking.id }}</span>
+            </div>
+
+            <div class="col-span-1 md:col-span-2">
+              <div class="flex flex-col">
+                <h4 class="text-sm font-bold text-gray-800">{{ booking.serviceName }}</h4>
+                <p class="text-xs text-gray-400 font-medium mt-0.5">{{ booking.category }}</p>
+              </div>
+            </div>
+
+            <div class="col-span-1 md:col-span-3">
+              <div class="flex md:block items-center gap-2">
+                <span class="md:hidden text-xs font-bold text-gray-400 uppercase w-20">Time:</span>
+                <div>
+                  <p class="text-gray-800 font-medium text-sm">{{ booking.scheduledDate }}</p>
+                  <p class="text-gray-500 text-xs mt-0.5">{{ booking.timeSlot }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-span-1 md:col-span-2">
+              <div class="flex md:block items-start gap-2">
+                <span class="md:hidden text-xs font-bold text-gray-400 uppercase w-20 mt-1"
+                  >Addr:</span
+                >
+                <p
+                  class="text-gray-500 text-sm leading-snug truncate pr-4"
+                  title="{{ booking.address }}"
+                >
+                  {{ booking.address }}
+                </p>
+              </div>
+            </div>
+
+            <div class="col-span-1 md:col-span-1 flex md:justify-center">
+              <div class="flex items-center justify-between w-full md:w-auto">
+                <span class="md:hidden text-xs font-bold text-gray-400 uppercase">Status</span>
+                <span
+                  class="inline-flex items-center justify-center px-3 py-1 rounded text-[11px] font-bold uppercase tracking-wide min-w-[80px]"
+                  [ngClass]="{
+                    'bg-[#fef3c7] text-[#d97706]': booking.status === 'PENDING',
+                    'bg-[#dcfce7] text-[#16a34a]': booking.status === 'ASSIGNED',
+                    'bg-[#dbeafe] text-[#2563eb]': booking.status === 'COMPLETED',
+                    'bg-[#fee2e2] text-[#dc2626]': booking.status === 'CANCELLED',
+                    'bg-indigo-100 text-indigo-800': booking.status === 'RESCHEDULED'
+                  }"
+                >
+                  {{ booking.status }}
+                </span>
+              </div>
+            </div>
+
+            <div
+              class="col-span-1 md:col-span-2 flex flex-row md:flex-col gap-2 md:items-end justify-end mt-2 md:mt-0 border-t md:border-t-0 border-[#efe6dc] pt-4 md:pt-0"
+            >
+              <button
+                *ngIf="shouldShowActions(booking.status)"
+                (click)="openRescheduleModal(booking.id)"
+                [disabled]="isRescheduleDisabled(booking.status)"
+                class="flex-1 md:flex-none w-full md:w-32 py-1.5 px-3 bg-[#f0e9e2] hover:bg-[#e6ddd5] text-[#5d4037] text-xs font-semibold rounded transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-3.5 w-3.5 text-[#8c6b5d]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                Reschedule
+              </button>
+
+              <button
+                *ngIf="shouldShowActions(booking.status)"
+                (click)="openCancelModal(booking.id)"
+                [disabled]="isCancelDisabled(booking.status)"
+                class="flex-1 md:flex-none w-full md:w-32 py-1.5 px-3 bg-[#d96c48] hover:bg-[#bf5533] text-white text-xs font-semibold rounded transition-colors flex items-center justify-center gap-2 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-400"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-3.5 w-3.5 text-white/90"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="showCancelModal"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+  >
+    <div
+      class="bg-[#fdfaf7] rounded-xl shadow-xl w-full max-w-sm overflow-hidden border border-[#efe6dc]"
+    >
+      <div class="p-6 text-center">
+        <div
+          class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4"
+        >
+          <svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            ></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-serif font-bold text-gray-900">Cancel Booking?</h3>
+        <p class="mt-2 text-sm text-gray-500">
+          Are you sure you want to cancel this booking? This action cannot be undone.
+        </p>
+      </div>
+      <div class="bg-[#f3ece6] px-6 py-4 flex gap-3 justify-center">
+        <button
+          (click)="closeModals()"
+          class="flex-1 px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 text-sm font-medium hover:bg-gray-50 focus:outline-none"
+        >
+          No, Keep it
+        </button>
+        <button
+          (click)="confirmCancel()"
+          class="flex-1 px-4 py-2 bg-[#d96c48] border border-transparent rounded-lg text-white text-sm font-medium hover:bg-[#bf5533] focus:outline-none shadow-sm"
+        >
+          Yes, Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="showRescheduleModal"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+  >
+    <div
+      class="bg-[#fdfaf7] rounded-xl shadow-xl w-full max-w-sm overflow-hidden border border-[#efe6dc]"
+    >
+      <div class="px-6 py-5 border-b border-[#e6ded5]">
+        <h3 class="text-lg font-serif font-bold text-[#2d2420]">Reschedule Booking</h3>
+        <p class="text-xs text-gray-500 mt-1">Select a new date and time slot.</p>
+      </div>
+
+      <div class="p-6 space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">New Date</label>
+          <input
+            type="date"
+            [(ngModel)]="rescheduleDate"
+            [min]="minDate"
+            [max]="maxDate"
+            class="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-[#c27843] focus:ring-1 focus:ring-[#c27843] text-gray-700"
+          />
+          <p class="mt-1 text-xs text-gray-400 italic">
+            * Availability limited to upcoming 3 days.
+          </p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">New Time Slot</label>
+          <div class="relative">
+            <select
+              [(ngModel)]="rescheduleTimeSlot"
+              class="w-full appearance-none px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-[#c27843] focus:ring-1 focus:ring-[#c27843] text-gray-700"
+            >
+              <option value="" disabled selected>Select a time slot</option>
+              <option *ngFor="let slot of availableTimeSlots" [value]="slot.key">
+                {{ slot.label }}
+              </option>
+            </select>
+            <div
+              class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500"
+            >
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-[#f3ece6] px-6 py-4 flex gap-3 justify-end">
+        <button
+          (click)="closeModals()"
+          class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 text-sm font-medium hover:bg-gray-50 transition"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="confirmReschedule()"
+          [disabled]="!rescheduleDate || !rescheduleTimeSlot"
+          class="px-4 py-2 bg-[#c27843] text-white rounded-lg text-sm font-medium hover:bg-[#a56336] disabled:opacity-50 disabled:cursor-not-allowed shadow-sm transition"
+        >
+          Confirm Reschedule
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
