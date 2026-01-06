@@ -1,0 +1,177 @@
+<section class="min-h-screen bg-[#faf7f4] font-sans pb-20 pt-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+      <div>
+        <h1 class="text-4xl font-serif font-bold text-gray-900">
+          Welcome, <span class="text-[#c27843]">Technician</span>
+        </h1>
+        <p class="text-gray-500 mt-2 text-sm">Manage your assigned bookings below.</p>
+      </div>
+
+      <div class="flex bg-white p-1 rounded-lg border border-[#efe6dc] shadow-sm self-start">
+        <a
+          routerLink="/technician/dashboard"
+          routerLinkActive="bg-[#c27843] text-white shadow-sm"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="px-6 py-2 rounded-md text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 cursor-pointer"
+        >
+          Dashboard
+        </a>
+        <a
+          routerLink="/technician/profile"
+          routerLinkActive="bg-[#c27843] text-white shadow-sm"
+          class="px-6 py-2 rounded-md text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 cursor-pointer"
+        >
+          Availability
+        </a>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <button
+        (click)="setActiveTab('NEW')"
+        class="bg-white p-5 rounded-2xl border shadow-sm hover:shadow-md transition-all text-left"
+        [ngClass]="
+          activeTab === 'NEW' ? 'border-[#c27843] ring-1 ring-[#c27843]/20' : 'border-[#efe6dc]'
+        "
+      >
+        <div class="flex justify-between items-center">
+          <span class="font-bold text-gray-700">New Assignments</span>
+          <span class="bg-[#fff4eb] text-[#c27843] px-3 py-1 rounded-full text-sm font-bold">
+            {{ newAssignments.length }}
+          </span>
+        </div>
+      </button>
+
+      <button
+        (click)="setActiveTab('ONGOING')"
+        class="bg-white p-5 rounded-2xl border shadow-sm hover:shadow-md transition-all text-left"
+        [ngClass]="
+          activeTab === 'ONGOING' ? 'border-[#c27843] ring-1 ring-[#c27843]/20' : 'border-[#efe6dc]'
+        "
+      >
+        <div class="flex justify-between items-center">
+          <span class="font-bold text-gray-700">Ongoing</span>
+          <span class="bg-green-50 text-green-600 px-3 py-1 rounded-full text-sm font-bold">
+            {{ ongoingAssignments.length }}
+          </span>
+        </div>
+      </button>
+
+      <button
+        (click)="setActiveTab('COMPLETED')"
+        class="bg-white p-5 rounded-2xl border shadow-sm hover:shadow-md transition-all text-left"
+        [ngClass]="
+          activeTab === 'COMPLETED'
+            ? 'border-[#c27843] ring-1 ring-[#c27843]/20'
+            : 'border-[#efe6dc]'
+        "
+      >
+        <div class="flex justify-between items-center">
+          <span class="font-bold text-gray-700">Completed</span>
+          <span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-sm font-bold">
+            {{ completedAssignments.length }}
+          </span>
+        </div>
+      </button>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm border border-[#efe6dc] overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-[#faf7f4] border-b border-[#efe6dc]">
+              <th class="p-5 text-xs font-bold text-gray-500 uppercase">Assignment ID</th>
+              <th class="p-5 text-xs font-bold text-gray-500 uppercase">Service</th>
+              <th class="p-5 text-xs font-bold text-gray-500 uppercase">Schedule</th>
+              <th class="p-5 text-xs font-bold text-gray-500 uppercase">Status</th>
+              <th class="p-5 text-xs font-bold text-gray-500 uppercase text-right">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody class="divide-y divide-gray-100">
+            <tr *ngFor="let item of getCurrentList()" class="hover:bg-gray-50 transition-colors">
+              <td class="p-5 text-sm text-gray-600">{{ item.assignmentId }}</td>
+              <td class="p-5 text-sm font-medium text-gray-800">{{ item.bookingId }}</td>
+              <td class="p-5 text-sm text-gray-600">{{ item.createdAt | date : 'medium' }}</td>
+
+              <td class="p-5">
+                <span
+                  *ngIf="item.status === 'PENDING'"
+                  class="px-3 py-1 rounded-md text-xs font-bold bg-[#fff4eb] text-[#c27843]"
+                  >Pending</span
+                >
+                <span
+                  *ngIf="item.status === 'ASSIGNED'"
+                  class="px-3 py-1 rounded-md text-xs font-bold bg-yellow-100 text-yellow-700"
+                  >Assigned</span
+                >
+                <span
+                  *ngIf="item.status === 'IN_PROGRESS'"
+                  class="px-3 py-1 rounded-md text-xs font-bold bg-green-100 text-green-700"
+                  >In Progress</span
+                >
+                <span
+                  *ngIf="item.status === 'COMPLETED'"
+                  class="px-3 py-1 rounded-md text-xs font-bold bg-gray-100 text-gray-600"
+                  >Completed</span
+                >
+              </td>
+
+              <td class="p-5 text-right">
+                <div class="flex justify-end gap-2">
+                  <ng-container *ngIf="item.status === 'PENDING'">
+                    <button
+                      (click)="acceptAssignment(item.assignmentId)"
+                      class="px-4 py-1.5 bg-[#c27843] hover:bg-[#a56336] text-white text-xs font-semibold rounded shadow-sm"
+                    >
+                      Accept
+                    </button>
+                    <button
+                      (click)="rejectAssignment(item.assignmentId)"
+                      class="px-4 py-1.5 border border-gray-300 hover:bg-gray-100 text-gray-600 text-xs font-semibold rounded shadow-sm"
+                    >
+                      Decline
+                    </button>
+                  </ng-container>
+
+                  <ng-container *ngIf="item.status === 'ASSIGNED'">
+                    <button
+                      (click)="startAssignment(item.assignmentId)"
+                      class="px-4 py-1.5 border border-yellow-600 text-yellow-700 hover:bg-yellow-50 text-xs font-semibold rounded shadow-sm"
+                    >
+                      Start Job
+                    </button>
+                  </ng-container>
+
+                  <ng-container *ngIf="item.status === 'IN_PROGRESS'">
+                    <button
+                      (click)="markComplete(item.assignmentId)"
+                      class="px-4 py-1.5 border border-green-600 text-green-700 hover:bg-green-50 text-xs font-semibold rounded shadow-sm"
+                    >
+                      Complete
+                    </button>
+                  </ng-container>
+
+                  <ng-container *ngIf="item.status === 'COMPLETED'">
+                    <span
+                      class="px-4 py-1.5 border border-gray-200 bg-gray-50 text-gray-500 text-xs font-semibold rounded"
+                    >
+                      Completed
+                    </span>
+                  </ng-container>
+                </div>
+              </td>
+            </tr>
+
+            <tr *ngIf="getCurrentList().length === 0">
+              <td colspan="5" class="p-10 text-center text-gray-500">
+                No assignments found in this category.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
