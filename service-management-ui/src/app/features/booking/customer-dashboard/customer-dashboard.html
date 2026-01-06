@@ -6,11 +6,19 @@
         Manage and assign technicians to bookings listed below.
       </p>
     </div>
+
     <div *ngIf="successMessage" class="mb-6">
       <div
         class="bg-green-100 border border-green-300 text-green-800 px-4 py-3 rounded-lg text-sm font-medium"
       >
         {{ successMessage }}
+      </div>
+    </div>
+    <div *ngIf="errorMessage" class="mb-6">
+      <div
+        class="bg-red-100 border border-red-300 text-red-800 px-4 py-3 rounded-lg text-sm font-medium"
+      >
+        {{ errorMessage }}
       </div>
     </div>
 
@@ -133,7 +141,7 @@
               <button
                 *ngIf="shouldShowActions(booking.status)"
                 (click)="openRescheduleModal(booking.id)"
-                [disabled]="isRescheduleDisabled(booking.status)"
+                [disabled]="isRescheduleDisabled(booking.status)|| isWithin24Hours(booking)"
                 class="flex-1 md:flex-none w-full md:w-32 py-1.5 px-3 bg-[#f0e9e2] hover:bg-[#e6ddd5] text-[#5d4037] text-xs font-semibold rounded transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <svg
@@ -156,7 +164,7 @@
               <button
                 *ngIf="shouldShowActions(booking.status)"
                 (click)="openCancelModal(booking.id)"
-                [disabled]="isCancelDisabled(booking.status)"
+                [disabled]="isCancelDisabled(booking.status) || isWithin24Hours(booking)"
                 class="flex-1 md:flex-none w-full md:w-32 py-1.5 px-3 bg-[#d96c48] hover:bg-[#bf5533] text-white text-xs font-semibold rounded transition-colors flex items-center justify-center gap-2 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-400"
               >
                 <svg

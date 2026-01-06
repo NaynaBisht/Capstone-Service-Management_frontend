@@ -46,6 +46,9 @@ export class CustomerDashboardComponent implements OnInit {
   // -- Success Message --
   successMessage: string = '';
 
+  // ERROR MSG
+  errorMessage: string = '';
+
   availableTimeSlots = [
     { key: 'SLOT_9_11', label: '9:00 AM - 11:00 AM' },
     { key: 'SLOT_11_13', label: '11:00 AM - 1:00 PM' },
@@ -61,9 +64,7 @@ export class CustomerDashboardComponent implements OnInit {
   loadBookings() {
     this.bookingService.getMyBookings().subscribe({
       next: (data: any[]) => {
-        this.bookings = data.map((backendBooking) =>
-          this.mapBackendDataToFrontend(backendBooking)
-        );
+        this.bookings = data.map((backendBooking) => this.mapBackendDataToFrontend(backendBooking));
         this.cdr.detectChanges(); // Force UI update
       },
       error: (err) => {
@@ -73,9 +74,7 @@ export class CustomerDashboardComponent implements OnInit {
   }
 
   mapBackendDataToFrontend(data: any): Booking {
-    const timeSlotObj = this.availableTimeSlots.find(
-      (slot) => slot.key === data.timeSlot
-    );
+    const timeSlotObj = this.availableTimeSlots.find((slot) => slot.key === data.timeSlot);
     const readableTime = timeSlotObj ? timeSlotObj.label : data.timeSlot;
 
     let readableAddress = 'No Address Provided';
@@ -98,10 +97,13 @@ export class CustomerDashboardComponent implements OnInit {
 
   calculateDateLimits() {
     const today = new Date();
+    const min = new Date();
+    min.setDate(today.getDate() + 1);
+
     const max = new Date();
     max.setDate(today.getDate() + 3);
 
-    this.minDate = today.toISOString().split('T')[0];
+    this.minDate = min.toISOString().split('T')[0];
     this.maxDate = max.toISOString().split('T')[0];
   }
 
@@ -112,24 +114,29 @@ export class CustomerDashboardComponent implements OnInit {
 
   // Helper: Should the buttons be visible at all? (Hide for COMPLETED)
   shouldShowActions(status: string): boolean {
-    return status !== 'COMPLETED';
+    return status !== 'COMPLETED' && status !== 'IN_PROGRESS';
   }
 
   // Helper: Logic for disabling Reschedule button
   isRescheduleDisabled(status: string): boolean {
-    // Disabled if already Cancelled OR Rescheduled
-    return status === 'CANCELLED' || status === 'RESCHEDULED';
+    return status === 'CANCELLED' || status === 'RESCHEDULED' || status === 'COMPLETED';
   }
 
   // Helper: Logic for disabling Cancel button
   isCancelDisabled(status: string): boolean {
-    // Disabled if already Cancelled
-    return status === 'CANCELLED';
+    return status === 'CANCELLED' || status === 'COMPLETED';
   }
 
   openCancelModal(id: string) {
     this.selectedBookingId = id;
     this.showCancelModal = true;
+  }
+
+  isWithin24Hours(booking: Booking): boolean {
+    const bookingDateTime = new Date(`${booking.scheduledDate} ${booking.timeSlot}`);
+    const now = new Date();
+    const diffHours = (bookingDateTime.getTime() - now.getTime()) / (1000 * 60 * 60);
+    return diffHours < 24;
   }
 
   openRescheduleModal(id: string) {
@@ -150,12 +157,13 @@ export class CustomerDashboardComponent implements OnInit {
       this.bookingService.cancelBooking(this.selectedBookingId).subscribe({
         next: () => {
           this.successMessage = 'Your booking has been successfully cancelled.';
+          this.errorMessage = '';
           this.closeModals();
           this.loadBookings();
-          this.cdr.detectChanges(); // Force UI update
+          this.cdr.detectChanges();
         },
         error: (err) => {
-          console.error('Cancel failed:', err);
+          this.errorMessage = err?.error?.message || 'Booking cannot be cancelled at this time.';
           this.closeModals();
           this.cdr.detectChanges();
         },
@@ -164,28 +172,42 @@ export class CustomerDashboardComponent implements OnInit {
   }
 
   confirmReschedule() {
-    if (this.selectedBookingId && this.rescheduleDate && this.rescheduleTimeSlot) {
-      const payload = {
-        scheduledDate: this.rescheduleDate,
-        timeSlot: this.rescheduleTimeSlot,
-      };
-
-      this.bookingService
-        .rescheduleBooking(this.selectedBookingId, payload)
-        .subscribe({
-          next: () => {
-            this.successMessage = 'Your booking has been successfully rescheduled.';
-            this.closeModals();
-            this.loadBookings();
-            this.cdr.detectChanges(); // Force UI update
-          },
-          error: (err) => {
-            console.error('Reschedule failed:', err);
-            this.closeModals();
-            this.cdr.detectChanges();
-          },
-        });
+    if (!this.selectedBookingId || !this.rescheduleDate || !this.rescheduleTimeSlot) {
+      this.errorMessage = 'Please select both date and time slot.';
+      return;
     }
+
+    const selectedDate = new Date(this.rescheduleDate);
+    const today = new Date();
+    const min = new Date();
+    min.setDate(today.getDate() + 1);
+    const max = new Date();
+    max.setDate(today.getDate() + 3);
+
+    if (selectedDate < min || selectedDate > max) {
+      this.errorMessage = 'You can only reschedule between tomorrow and the next 3 days.';
+      return;
+    }
+
+    const payload = {
+      scheduledDate: this.rescheduleDate,
+      timeSlot: this.rescheduleTimeSlot,
+    };
+
+    this.bookingService.rescheduleBooking(this.selectedBookingId, payload).subscribe({
+      next: () => {
+        this.successMessage = 'Your booking has been successfully rescheduled.';
+        this.errorMessage = '';
+        this.closeModals();
+        this.loadBookings();
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.errorMessage = err?.error?.message || 'Unable to reschedule booking.';
+        this.closeModals();
+        this.cdr.detectChanges();
+      },
+    });
   }
 
   viewDetails(id: string) {
