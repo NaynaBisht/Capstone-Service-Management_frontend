@@ -11,6 +11,7 @@ export class AssignmentService {
   createAssignment(payload: {
     bookingId: string;
     serviceId: string;
+    technicianId: string; // <--- ADD THIS
     scheduledDate: string;
     timeSlot: string;
   }) {

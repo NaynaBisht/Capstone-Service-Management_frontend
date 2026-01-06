@@ -10,6 +10,7 @@ import { AssignmentService } from '../../../shared/services/assignment.service';
 // ---------------- INTERFACE ----------------
 interface AssignmentRow {
   bookingId: string;
+  serviceId: string; // <--- ADDED THIS FIELD (UUID)
   serviceName: string;
   subCategory: string;
   scheduledDate: string;
@@ -86,11 +87,12 @@ export class AssignmentManagementComponent implements OnInit {
   private mapBookingToAssignmentRow(booking: BookingApiResponse): AssignmentRow {
     return {
       bookingId: booking.bookingId,
+      serviceId: booking.serviceId,
       serviceName: booking.serviceName,
       subCategory: booking.categoryName,
       scheduledDate: booking.scheduledDate,
       timeSlot: booking.timeSlot,
-      customerName: '',
+      customerName: '', // Add mapping if available in API
       customerPhone: '',
       technician: undefined,
       status: booking.status === 'CONFIRMED' ? 'UNASSIGNED' : 'COMPLETED',
@@ -110,7 +112,9 @@ export class AssignmentManagementComponent implements OnInit {
   formatTime(slot: string): string {
     const map: Record<string, string> = {
       SLOT_9_11: '9:00 AM - 11:00 AM',
-      SLOT_11_1: '11:00 AM - 1:00 PM',
+      SLOT_11_13: '11:00 AM - 1:00 PM', // Fixed key name based on previous errors
+      SLOT_14_16: '2:00 PM - 4:00 PM',
+      SLOT_16_18: '4:00 PM - 6:00 PM'
     };
     return map[slot] || slot;
   }
@@ -126,6 +130,9 @@ export class AssignmentManagementComponent implements OnInit {
       this.isReassignModalOpen = true;
     }
 
+    // Pass the actual serviceId (UUID) to find technicians with that specific skill ID
+    // OR keep passing subCategory if your technician service searches by name.
+    // Ideally, this should also be the ID: this.fetchAvailableTechnicians(item.serviceId);
     this.fetchAvailableTechnicians(item.subCategory);
   }
 
@@ -162,27 +169,31 @@ export class AssignmentManagementComponent implements OnInit {
   }
 
   // ---------------- ASSIGNMENT API ----------------
-  confirmAssignment(): void {
-    if (!this.selectedBooking || !this.selectedTechnicianId) return;
 
-    const booking = this.selectedBooking;
+  // Inside confirmAssignment() method
+confirmAssignment(): void {
+  if (!this.selectedBooking || !this.selectedTechnicianId) return;
 
-    this.assignmentService
-      .createAssignment({
-        bookingId: booking.bookingId,
-        serviceId: booking.subCategory.toUpperCase(),
-        scheduledDate: booking.scheduledDate,
-        timeSlot: booking.timeSlot,
-      })
-      .subscribe({
-        next: () => {
-          this.closeModals();
-          this.loadBookings();
-        },
-        error: (err) => {
-          console.error('Assignment failed', err);
-          alert('Failed to create assignment');
-        },
-      });
-  }
+  const booking = this.selectedBooking;
+
+  this.assignmentService
+    .createAssignment({
+      bookingId: booking.bookingId,
+      serviceId: booking.serviceId, 
+      technicianId: this.selectedTechnicianId, // <--- PASS THE ID HERE
+      scheduledDate: booking.scheduledDate,
+      timeSlot: booking.timeSlot,
+    })
+    .subscribe({
+      next: () => {
+        this.closeModals();
+        this.loadBookings();
+        alert('Technician Assigned Successfully!');
+      },
+      error: (err) => {
+        console.error('Assignment failed', err);
+        alert('Failed to create assignment: ' + (err.error?.message || 'Server Error'));
+      },
+    });
+}
 }
